@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet debug page</title>
+	<meta charset="utf-8" />
+
+
+<!-- 	<link rel="stylesheet" href="../../dist/leaflet.css" /> -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 	<link rel="stylesheet" href="../css/screen.css" /> -->
+
+<!--	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../leaflet-include.js"></script>-->
+	
+	<script src="./node_modules/leaflet/dist/leaflet-src.js"></script>
+	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+	<script src="./Leaflet.ImageOverlay.Rotated.js"></script>
+	
+</head>
+<body>
+
+	<div id="map" style='width:800px; height:600px;'></div>
+	<button id="populate">Populate with 10 markers</button>
+
+	<script type="text/javascript">
+	
+		var map = new L.Map('map');
+
+		var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+			maxNativeZoom: 18,
+			maxZoom:24
+		}).addTo(map);
+    
+
+		var point1 = L.latLng(40.52170, -3.77454),
+		    point2 = L.latLng(40.52126, -3.77431),
+		    point3 = L.latLng(40.52134, -3.77580);
+		
+		var marker1 = L.marker(point1).addTo(map),
+		    marker2 = L.marker(point2).addTo(map),
+		    marker3 = L.marker(point3).addTo(map);
+		    
+		
+		var	bounds = new L.LatLngBounds(point1, point2).extend(point3);
+
+		map.fitBounds(bounds);
+
+		var overlay = L.imageOverlay.rotated("./palacio-de-el-pardo-821175.jpg", point1, point2, point3, {
+			opacity: 0.5,
+			interactive: true
+		});
+		
+// 		var c = overlay.getCanvas2DContext()
+		
+		map.addLayer(overlay);
+
+		overlay.on('dblclick',function (e) {
+			console.log('Double click on image.');
+		});
+
+	</script>
+</body>
+</html>
