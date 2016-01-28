@@ -22,7 +22,18 @@
 <body>
 
 	<div id="map" style='width:800px; height:600px;'></div>
-	<button id="populate">Populate with 10 markers</button>
+	<div>
+	Overlay opacity:
+	<button onclick='setOverlayOpacity(0.1)'>10%</button>
+	<button onclick='setOverlayOpacity(0.2)'>20%</button>
+	<button onclick='setOverlayOpacity(0.3)'>30%</button>
+	<button onclick='setOverlayOpacity(0.4)'>40%</button>
+	<button onclick='setOverlayOpacity(0.5)'>50%</button>
+	<button onclick='setOverlayOpacity(0.6)'>60%</button>
+	<button onclick='setOverlayOpacity(0.7)'>70%</button>
+	<button onclick='setOverlayOpacity(0.8)'>80%</button>
+	<button onclick='setOverlayOpacity(0.9)'>90%</button>
+	</div>
 
 	<script type="text/javascript">
 	
@@ -34,14 +45,13 @@
 			maxZoom:24
 		}).addTo(map);
     
-
-		var point1 = L.latLng(40.52170, -3.77454),
-		    point2 = L.latLng(40.52126, -3.77431),
-		    point3 = L.latLng(40.52134, -3.77580);
+		var point1 = L.latLng(40.52256691873593, -3.7743186950683594),
+		    point2 = L.latLng(40.5210255066156, -3.7734764814376835),
+		    point3 = L.latLng(40.52180437272552, -3.7768453359603886);
 		
-		var marker1 = L.marker(point1).addTo(map),
-		    marker2 = L.marker(point2).addTo(map),
-		    marker3 = L.marker(point3).addTo(map);
+		var marker1 = L.marker(point1, {draggable: true} ).addTo(map),
+		    marker2 = L.marker(point2, {draggable: true} ).addTo(map),
+		    marker3 = L.marker(point3, {draggable: true} ).addTo(map);
 		    
 		
 		var	bounds = new L.LatLngBounds(point1, point2).extend(point3);
@@ -49,9 +59,17 @@
 		map.fitBounds(bounds);
 
 		var overlay = L.imageOverlay.rotated("./palacio-de-el-pardo-821175.jpg", point1, point2, point3, {
-			opacity: 0.5,
+			opacity: 0.4,
 			interactive: true
 		});
+		
+		function repositionImage() {
+			overlay.reposition(marker1.getLatLng(), marker2.getLatLng(), marker3.getLatLng());
+		};
+		
+		marker1.on('drag dragend', repositionImage);
+		marker2.on('drag dragend', repositionImage);
+		marker3.on('drag dragend', repositionImage);
 		
 // 		var c = overlay.getCanvas2DContext()
 		
@@ -59,8 +77,18 @@
 
 		overlay.on('dblclick',function (e) {
 			console.log('Double click on image.');
+			e.stop();
 		});
 
+		overlay.on('click',function (e) {
+			console.log('Click on image.');
+		});
+
+		function setOverlayOpacity(opacity) {
+			overlay.setOpacity(opacity);
+		}
+		
+		
 	</script>
 </body>
 </html>

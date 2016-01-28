@@ -23,8 +23,8 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		}
 
 		if (this.options.interactive) {
-			L.DomUtil.addClass(this._image, 'leaflet-interactive');
-			this.addInteractiveTarget(this._image);
+			L.DomUtil.addClass(this._rawImage, 'leaflet-interactive');
+			this.addInteractiveTarget(this._rawImage);
 		}
 
 		map.on('zoomend resetview', this._reset, this);
@@ -44,19 +44,22 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		div.appendChild(img);
 		
 // 		div.style.border = '1px solid black';
-		div.style.background = 'rgba(0,0,0,0.2)';
+// 		div.style.background = 'rgba(0,0,0,0.2)';	// Only for debugging purposes!
 		
 		div.onselectstart = L.Util.falseFn;
 		div.onmousemove = L.Util.falseFn;
 
 // 		img.onload = L.bind(this.fire, this, 'load');
 		img.onload = function(){
-			console.log('raw image loaded');
+// 			console.log('raw image loaded');
 			this._reset();
+			this._rawImage.style.display = 'block';
 			this.fire('load');
 		}.bind(this);
 
-		img.style.border = '1px solid red';
+// 		img.style.border = '10px solid red';	// Only for debugging purposes!
+		
+		img.style.display = 'none';	// Hide while the first transform (zero or one frames) is being done
 		
 		if (this.options.crossOrigin) {
 			img.crossOrigin = '';
@@ -104,50 +107,30 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 			return;	// Probably because the image hasn't loaded yet.
 		}
 		
-// 		console.log('raw image is', this._rawImage);
-// 		console.log('raw image dimensions ', imgH, imgW);
-		
-		var scaleX = pxTopLeft.distanceTo(pxTopRight) / imgW * Math.cos(skewX)/* * Math.sin(skewY)*/;
-		var scaleY = pxTopLeft.distanceTo(pxBottomLeft) / imgH * Math.cos(skewY) /** Math.sin(skewY)*/;
+		var scaleX = pxTopLeft.distanceTo(pxTopRight) / imgW * Math.cos(skewX);
+		var scaleY = pxTopLeft.distanceTo(pxBottomLeft) / imgH * Math.cos(skewY);
 		
 		function rad2deg (angle) {
 			return angle * (180 / Math.PI);
 		}
 		
-		console.log('Skew X: ', rad2deg(skewX), 'sin:', Math.cos(skewX));
-		console.log('Skew Y: ', rad2deg(skewY));
-		
 		this._rawImage.style.transformOrigin = '0 0';
-// 		this._rawImage.style.transformOrigin = (size.x/2) + 'px ' + (size.y/2) + 'px';
-		
-// 		L.DomUtil.setPosition(this._rawImage, (pxTopLeftInDiv.x) + 'px ' + (pxTopLeftInDiv.y) + 'px';
 		
 		this._rawImage.style.transform = 
 			'translate(' + pxTopLeftInDiv.x + 'px, ' + pxTopLeftInDiv.y + 'px)' +
 			'skew(' + skewY + 'rad, ' + skewX + 'rad) ' +
-// 			'skewY(' + skewX + 'rad) ' +
-// 			'skew(-72deg, 72deg) ' +
-// 			'scale(' + scaleX * Math.sin(skewX) + ', ' + scaleY * Math.sin(skewY) + ') ' +
-			'scale(' + scaleX + ', ' + scaleY + ') ' +
-// 			'translate(' + (-imgW/2) + 'px, ' + (-imgH/2) + 'px)';
-			'';
-			
-// 		this._rawImage.style.transform = 
-// 			'skew(' + skewX + 'rad, ' + skewY + 'rad) ' +
-// 			'scale(' + scaleX + ', ' + scaleY + ') ' +
-// 			'translate(' + (-imgW/2) + 'px, ' + (-imgH/2) + 'px)';
-
+			'scale(' + scaleX + ', ' + scaleY + ') ';
 	},
 	
+	
+	reposition: function(topleft, topright, bottomleft) {
+		this._topLeft    = L.latLng(topleft);
+		this._topRight   = L.latLng(topright);
+		this._bottomLeft = L.latLng(bottomleft);
+		this._reset();
+	}
+
 });
-
-
-
-
-
-
-
-
 
 
 
