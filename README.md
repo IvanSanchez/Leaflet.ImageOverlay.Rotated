@@ -11,7 +11,7 @@ difference is that the position of `L.ImageOverlay` is defined by a `L.LatLngBou
 whereas `L.ImageOverlay.Rotated` is defined by **three** points (the `L.LatLng`s
 of the top-left, top-right and bottom-left corners of the image).
 
-The image will be rotated *and* skewed (as the three corner points might not form 
+The image will be rotated *and* skewed (as the three corner points might not form
 a 90-degree angle).
 
 
@@ -37,6 +37,8 @@ var overlay = L.imageOverlay.rotated("./palacio.jpg", topleft, topright, bottoml
 to the locations of the corners of the image. These three `L.LatLng`s might not
 neccesarily be at the top or at the left of each other.
 
+Alternatively, the first parameter to the constructor can be an instance of
+[HTMLImage](https://developer.mozilla.org/docs/Web/API/HTMLImageElement).
 
 
 Additionally, the `reposition` method allows to reset the `LatLng`s for the corner
@@ -56,7 +58,10 @@ overlay.reposition(updatedTopLeft, updatedTopRight, updatedBottomLeft);
 
 ### Using the code in other projects
 
-Use `npm` to include this project as a dependency. The `package.json` file
+The classic way: copy the `Leaflet.ImageOverlay.Rotate.js` file and include it
+in your webpage.
+
+`npm` can be used to include this project as a dependency. The `package.json` file
 will allow webpack/browserify to work its magic.
 
 No plans to support bower, as it is being deprecated quite fast.
@@ -64,7 +69,7 @@ No plans to support bower, as it is being deprecated quite fast.
 
 ### Legalese
 
-The demo uses an historical building plan dated from 1863, from the archives of the 
+The demo uses an historical building plan dated from 1863, from the archives of the
 [Instituto Geográfico Nacional de España](http://www.ign.es). These images
 are [available under a non-commercial license](http://centrodedescargas.cnig.es/CentroDescargas/cambiarMenu.do?destino=infoCondicionesLicencia).
 
