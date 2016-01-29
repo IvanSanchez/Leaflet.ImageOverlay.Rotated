@@ -3,19 +3,12 @@
 <head>
 	<title>Leaflet debug page</title>
 	<meta charset="utf-8" />
-
-
-<!-- 	<link rel="stylesheet" href="../../dist/leaflet.css" /> -->
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- 	<link rel="stylesheet" href="../css/screen.css" /> -->
-
-<!--	<script type="text/javascript" src="../../build/deps.js"></script>
-	<script src="../leaflet-include.js"></script>-->
 	
 	<script src="./node_modules/leaflet/dist/leaflet-src.js"></script>
+	
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+	
 	<script src="./Leaflet.ImageOverlay.Rotated.js"></script>
 	
 </head>
@@ -60,7 +53,8 @@
 
 		var overlay = L.imageOverlay.rotated("./palacio-de-el-pardo-821175.jpg", point1, point2, point3, {
 			opacity: 0.4,
-			interactive: true
+			interactive: true,
+			attribution: "Historical building plan &copy; <a href='http://www.ign.es'>Instituto Geográfico Nacional de España</a>"
 		});
 		
 		function repositionImage() {
@@ -87,7 +81,6 @@
 		function setOverlayOpacity(opacity) {
 			overlay.setOpacity(opacity);
 		}
-		
 		
 	</script>
 </body>
