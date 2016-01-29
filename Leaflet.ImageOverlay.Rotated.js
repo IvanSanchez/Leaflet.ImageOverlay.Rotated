@@ -1,9 +1,13 @@
 
 L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 	
-	initialize(imgSrc, topleft, topright, bottomleft, options) {
+	initialize: function(image, topleft, topright, bottomleft, options) {
 		
-		this._url = imgSrc;
+		if (typeof(image) === 'string') {
+            this._url = image;
+        } else {
+            this._rawImage = image;
+        }
 		
 		this._topLeft    = L.latLng(topleft);
 		this._topRight   = L.latLng(topright);
@@ -35,38 +39,40 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 	
 	
 	_initImage: function () {
-		var img = this._rawImage = L.DomUtil.create('img', 'leaflet-image-layer');
-		
-		// this._image is reused by some of the methods of the parent class.
-		var div = this._image = L.DomUtil.create('div',
-				'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
+		if (this._url) {
+            this._rawImage = L.DomUtil.create('img');
+        }
+        L.DomUtil.addClass(this._rawImage, 'leaflet-image-layer');
+        var img = this._rawImage;
 
-		div.appendChild(img);
-		
-// 		div.style.border = '1px solid black';
-// 		div.style.background = 'rgba(0,0,0,0.2)';	// Only for debugging purposes!
-		
-		div.onselectstart = L.Util.falseFn;
-		div.onmousemove = L.Util.falseFn;
+        // this._image is reused by some of the methods of the parent class.
+        var div = this._image = L.DomUtil.create('div',
+            'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
 
-// 		img.onload = L.bind(this.fire, this, 'load');
-		img.onload = function(){
-// 			console.log('raw image loaded');
-			this._reset();
-			this._rawImage.style.display = 'block';
-			this.fire('load');
-		}.bind(this);
+        div.appendChild(img);
 
-// 		img.style.border = '10px solid red';	// Only for debugging purposes!
-		
-		img.style.display = 'none';	// Hide while the first transform (zero or one frames) is being done
-		
-		if (this.options.crossOrigin) {
-			img.crossOrigin = '';
-		}
+        div.onselectstart = L.Util.falseFn;
+        div.onmousemove = L.Util.falseFn;
 
-		img.src = this._url;
-		img.alt = this.options.alt;
+        img.style.display = 'none'; // Hide while the first transform (zero or one frames) is being done
+
+        if (this.options.crossOrigin) {
+            img.crossOrigin = '';
+        }
+
+        img.onload = function() {
+            this._reset();
+            this._rawImage.style.display = 'block';
+            this.fire('load');
+        }.bind(this);
+
+        if (this._url) {
+            this._rawImage.src = this._url;
+        } else {
+            img.onload();
+        }
+
+        img.alt = this.options.alt;
 		},
 
 	
@@ -109,10 +115,6 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		
 		var scaleX = pxTopLeft.distanceTo(pxTopRight) / imgW * Math.cos(skewX);
 		var scaleY = pxTopLeft.distanceTo(pxBottomLeft) / imgH * Math.cos(skewY);
-		
-		function rad2deg (angle) {
-			return angle * (180 / Math.PI);
-		}
 		
 		this._rawImage.style.transformOrigin = '0 0';
 		
