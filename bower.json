@@ -3,7 +3,8 @@
   "main": "Leaflet.ImageOverlay.Rotated.js",
   "version": "0.0.0",
   "authors": [
-    "Iván Sánchez Ortega <ivan@mazemap.com>"
+    "Iván Sánchez Ortega <ivan@mazemap.com>",
+    "Julius Buset Aspin <julius@mazemap.com>"
   ],
   "keywords": [
     "leaflet",
