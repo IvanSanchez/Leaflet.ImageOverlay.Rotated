@@ -39,6 +39,12 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 	},
 
 
+    onRemove: function(map) {
+        map.off('zoomend resetview', this._reset, this);
+        L.ImageOverlay.prototype.onRemove.call(this, map);
+    },
+	
+	
 	_initImage: function () {
 		var img = this._rawImage;
 		if (this._url) {
@@ -71,7 +77,7 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		}.bind(this);
 
 		img.alt = this.options.alt;
-		},
+	},
 
 
 	_reset: function () {

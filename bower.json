@@ -1,0 +1,23 @@
+{
+  "name": "Leaflet.ImageOverlay.Rotated",
+  "main": "Leaflet.ImageOverlay.Rotated.js",
+  "version": "0.0.0",
+  "authors": [
+    "Iván Sánchez Ortega <ivan@mazemap.com>",
+    "Julius Buset Asplin <julius@mazemap.com>"
+  ],
+  "keywords": [
+    "leaflet",
+    "image",
+    "overlay",
+    "rotate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
