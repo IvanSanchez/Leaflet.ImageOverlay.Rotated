@@ -36,6 +36,12 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		this.getPane().appendChild(this._image);
 		this._reset();
 	},
+
+
+    onRemove: function(map) {
+        map.off('zoomend resetview', this._reset, this);
+        L.ImageOverlay.prototype.onRemove.call(this, map);
+    },
 	
 	
 	_initImage: function () {
