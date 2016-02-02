@@ -1,7 +1,7 @@
 
 L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 
-	initialize(image, topleft, topright, bottomleft, options) {
+	initialize: function (image, topleft, topright, bottomleft, options) {
 
 		if (typeof(image) === 'string') {
 			this._url = image;
