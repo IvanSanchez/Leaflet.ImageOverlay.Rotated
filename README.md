@@ -14,6 +14,10 @@ of the top-left, top-right and bottom-left corners of the image).
 The image will be rotated *and* skewed (as the three corner points might not form
 a 90-degree angle).
 
+## Demo
+
+http://ivansanchez.github.io/Leaflet.ImageOverlay.Rotated/demo.html
+
 
 ### Usage
 
@@ -49,25 +53,32 @@ overlay.reposition(updatedTopLeft, updatedTopRight, updatedBottomLeft);
 ```
 
 
-### Running the demo
-
-* Clone the repo
-* `npm install`
-* open `demo.html` in a web browser
-
-
 ### Using the code in other projects
 
 The classic way: copy the `Leaflet.ImageOverlay.Rotate.js` file and include it
 in your webpage.
 
-`npm` can be used to include this project as a dependency. The `package.json` file
-will allow webpack/browserify to work its magic.
+`npm install leaflet-imageoverlay-rotated` can be used to include this project
+as a dependency. The `package.json` file will allow webpack/browserify to work
+its magic.
 
-No plans to support bower, as it is being deprecated quite fast.
+There is also some support for Bower (in the form of a `bower.json` file), but
+Bower is being deprecated, so NPM is preferred.
 
 
 ### Legalese
+
+The code for this plugin is under a Beerware license:
+
+----------------------------------------------------------------------------
+
+"THE BEER-WARE LICENSE":
+<ivan@sanchezortega.es> wrote this file. As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return.
+
+----------------------------------------------------------------------------
+
 
 The demo uses an historical building plan dated from 1863, from the archives of the
 [Instituto Geográfico Nacional de España](http://www.ign.es). These images

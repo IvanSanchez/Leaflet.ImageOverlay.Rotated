@@ -12,7 +12,7 @@
     "overlay",
     "rotate"
   ],
-  "license": "MIT",
+  "license": "Beerware",
   "ignore": [
     "**/.*",
     "node_modules",
