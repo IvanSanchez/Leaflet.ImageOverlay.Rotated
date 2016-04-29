@@ -65,6 +65,9 @@ its magic.
 There is also some support for Bower (in the form of a `bower.json` file), but
 Bower is being deprecated, so NPM is preferred.
 
+This plugin has been tested only with Leaflet 1.0.0-beta and 1.0.0-rc1. Don't
+expect it to work with 0.7.x.
+
 
 ### Legalese
 
