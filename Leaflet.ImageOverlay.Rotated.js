@@ -1,4 +1,27 @@
 
+/*
+ * 🍂class ImageOverlay.Rotated
+ * 🍂inherits ImageOverlay
+ *
+ * Like `ImageOverlay`, but rotates and skews the image. This is done by using
+ * *three* control points instead of *two*.
+ *
+ * @example
+ *
+ * ```
+ * var topleft    = L.latLng(40.52256691873593, -3.7743186950683594),
+ * 	topright   = L.latLng(40.5210255066156, -3.7734764814376835),
+ * 	bottomleft = L.latLng(40.52180437272552, -3.7768453359603886);
+ *
+ * var overlay = L.imageOverlay.rotated("./palacio.jpg", topleft, topright, bottomleft, {
+ * 	opacity: 0.4,
+ * 	interactive: true,
+ * 	attribution: "&copy; <a href='http://www.ign.es'>Instituto Geográfico Nacional de España</a>"
+ * });
+ * ```
+ *
+ */
+
 L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 
 	initialize: function (image, topleft, topright, bottomleft, options) {
@@ -43,8 +66,8 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
         map.off('zoomend resetview', this._reset, this);
         L.ImageOverlay.prototype.onRemove.call(this, map);
     },
-	
-	
+
+
 	_initImage: function () {
 		var img = this._rawImage;
 		if (this._url) {
@@ -138,8 +161,13 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 
 });
 
-
-
+/* 🍂factory imageOverlay.rotated(imageUrl: String|HTMLImageElement|HTMLCanvasElement, topleft: LatLng, topright: LatLng, bottomleft: LatLng, options?: ImageOverlay options)
+ * Instantiates a rotated/skewed image overlay, given the image URL and
+ * the `LatLng`s of three of its corners.
+ *
+ * Alternatively to specifying the URL of the image, an existing instance of `HTMLImageElement`
+ * or `HTMLCanvasElement` can be used.
+ */
 L.imageOverlay.rotated = function(imgSrc, topleft, topright, bottomleft, options) {
 	return new L.ImageOverlay.Rotated(imgSrc, topleft, topright, bottomleft, options);
 };
