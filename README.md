@@ -34,7 +34,7 @@ var overlay = L.imageOverlay.rotated("./palacio.jpg", topleft, topright, bottoml
 	opacity: 0.4,
 	interactive: true,
 	attribution: "&copy; <a href='http://www.ign.es'>Instituto Geográfico Nacional de España</a>"
-});
+}).addTo(map);
 ```
 
 `topleft`, `topright` and `bottomleft` are instances of `L.LatLng`, corresponding
