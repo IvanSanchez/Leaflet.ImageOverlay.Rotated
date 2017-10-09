@@ -1,10 +1,10 @@
 {
   "name": "leaflet-imageoverlay-rotated",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Displays rotated/slanted image overlays in Leaflet",
   "main": "Leaflet.ImageOverlay.Rotated.js",
   "dependencies": {
-    "leaflet": "^1.0.0-rc.1"
+    "leaflet": "^1.0.0"
   },
   "devDependencies": {},
   "keywords": [
