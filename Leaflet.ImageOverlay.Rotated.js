@@ -157,8 +157,17 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		this._topRight   = L.latLng(topright);
 		this._bottomLeft = L.latLng(bottomleft);
 		this._reset();
-	}
+	},
 
+
+	setUrl: function (url) {
+		this._url = url;
+
+		if (this._rawImage) {
+			this._rawImage.src = url;
+		}
+		return this;
+	}
 });
 
 /* 🍂factory imageOverlay.rotated(imageUrl: String|HTMLImageElement|HTMLCanvasElement, topleft: LatLng, topright: LatLng, bottomleft: LatLng, options?: ImageOverlay options)
