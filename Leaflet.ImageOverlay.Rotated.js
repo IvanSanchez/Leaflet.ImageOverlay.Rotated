@@ -1,4 +1,4 @@
-import L from 'leaflet';
+const L = require('leaflet');
 
 /*
  * 🍂class ImageOverlay.Rotated
