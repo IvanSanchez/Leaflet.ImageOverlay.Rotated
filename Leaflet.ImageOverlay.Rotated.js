@@ -88,6 +88,8 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		var div = this._image = L.DomUtil.create('div',
 				'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
 
+		this._updateZIndex(); // apply z-index style setting to the div (if defined)
+		
 		div.appendChild(img);
 
 		div.onselectstart = L.Util.falseFn;
