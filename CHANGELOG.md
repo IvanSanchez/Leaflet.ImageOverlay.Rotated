@@ -1,4 +1,8 @@
 
+### 0.1.4 (2019-03-01)
+
+* Don't crash on `_reset` when overlay is not on a added to a map by @magnudae
+
 ### 0.1.3 (2018-06-14)
 
 * Fixed behaviour of `zIndex` option by @KarloX2
