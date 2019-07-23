@@ -125,13 +125,7 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		var size = pxBounds.getSize();
 		var pxTopLeftInDiv = pxTopLeft.subtract(pxBounds.min);
 
-		// Calculate the skew angles, both in X and Y
-		var vectorX = pxTopRight.subtract(pxTopLeft);
-		var vectorY = pxBottomLeft.subtract(pxTopLeft);
-		var skewX = Math.atan2( vectorX.y, vectorX.x );
-		var skewY = Math.atan2( vectorY.x, vectorY.y );
-
-		// LatLngBounds used for animations
+		// LatLngBounds are needed for (zoom) animations
 		this._bounds = L.latLngBounds( this._map.layerPointToLatLng(pxBounds.min),
 		                               this._map.layerPointToLatLng(pxBounds.max) );
 
@@ -146,15 +140,22 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 			return;	// Probably because the image hasn't loaded yet.
 		}
 
-		var scaleX = pxTopLeft.distanceTo(pxTopRight)   / imgW * Math.cos(skewX);
-		var scaleY = pxTopLeft.distanceTo(pxBottomLeft) / imgH * Math.cos(skewY);
+		// Sides of the control-point box, in pixels
+		// These are the main ingredient for the transformation matrix.
+		var vectorX = pxTopRight.subtract(pxTopLeft);
+		var vectorY = pxBottomLeft.subtract(pxTopLeft);
 
 		this._rawImage.style.transformOrigin = '0 0';
 
-		this._rawImage.style.transform =
-			'translate(' + pxTopLeftInDiv.x + 'px, ' + pxTopLeftInDiv.y + 'px)' +
-			'skew(' + skewY + 'rad, ' + skewX + 'rad) ' +
-			'scale(' + scaleX + ', ' + scaleY + ') ';
+		// The transformation is an affine matrix that switches
+		// coordinates around in just the right way. This is the result
+		// of calculating the skew/rotation/scale matrices and simplyfing
+		// everything.
+		this._rawImage.style.transform = "matrix(" +
+			(vectorX.x/imgW) + ', ' + (vectorX.y/imgW) + ', ' +
+			(vectorY.x/imgH) + ', ' + (vectorY.y/imgH) + ', ' +
+			pxTopLeftInDiv.x + ', ' + pxTopLeftInDiv.y + ')';
+
 	},
 
 
