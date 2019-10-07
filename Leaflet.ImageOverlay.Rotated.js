@@ -56,9 +56,6 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		}
 
 		map.on('zoomend resetview', this._reset, this);
-
-		this.getPane().appendChild(this._image);
-		this._reset();
 	},
 
 
@@ -96,8 +93,9 @@ L.ImageOverlay.Rotated = L.ImageOverlay.extend({
 		div.onmousemove = L.Util.falseFn;
 
 		img.onload = function(){
-			this._reset();
+			this.getPane().appendChild(this._image);
 			img.style.display = 'block';
+			this._reset();
 			this.fire('load');
 		}.bind(this);
 
