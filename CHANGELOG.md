@@ -1,4 +1,11 @@
 
+### 0.3.0
+
+* Port the plugin to Leaflet 2.0: rewrite `L.ImageOverlay.Rotated` as an ES class
+  using only Leaflet 2 APIs (`new L.LatLng`, `new L.Bounds`, `new L.LatLngBounds`,
+  `L.Util.setOptions`, pointer events). Remove the `L.Class.extend`/`initialize`
+  dependency. The `L.imageOverlay.rotated` factory is kept as a compatibility shim.
+
 ### 0.2.1 (2019-07-24)
 
 * Update changelog
